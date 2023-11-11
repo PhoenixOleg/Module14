@@ -26,9 +26,8 @@ namespace Module14
             do
             {
                 Console.Write($"Выберите количество отображаемых записей на страницу (минимум {minRecordsPerPage}) или 0 для выхода: ");
-                input = Console.ReadLine();
             }
-            while ((!Int32.TryParse(input, out recordsPerPage) && (recordsPerPage == 0)) || (recordsPerPage < minRecordsPerPage) && (recordsPerPage != 0)) ;
+            while ((!Int32.TryParse(Console.ReadLine(), out recordsPerPage) && (recordsPerPage == 0)) || (recordsPerPage < minRecordsPerPage) && (recordsPerPage != 0)) ;
             
             if (recordsPerPage == 0)
             {
