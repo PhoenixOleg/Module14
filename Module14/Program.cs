@@ -13,6 +13,7 @@
             {
                 Settings settings = DisplayContent.PrepareFormat(phoneBook.Count);
                 DisplayContent.Show(phoneBook, settings);
+                Console.Clear();
             }
         }
     }
