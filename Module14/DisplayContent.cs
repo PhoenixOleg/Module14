@@ -8,22 +8,27 @@ namespace Module14
 {
     internal struct Settings
     {
-        internal static readonly int recordsOnPage;
+        internal int recordsPerPage;
+        internal int maxPageNumber;
     }
-    internal class DisplayContent
+
+    internal static class DisplayContent
     {
-        internal static int PrepareFormat(int RecordsCount, int recordsOnPage)
+        internal static Settings PrepareFormat(int RecordsCount)
         {
+            Settings settings = new();
             //Рассчитываем минимальное количество записей на страницу из расчета, что максимальное количество страниц (почему-то, например, по ТЗ) равно 9
-            int minRecordsOnPage = (int)Math.Ceiling((double)RecordsCount / 9.0);
+            int minRecordsPerPage = (int)Math.Ceiling((double)RecordsCount / 9.0);
 
             do
             {
-                Console.Write($"Выберите количество отображаемых записей на страницу (минимум {minRecordsOnPage}): ");
+                Console.Write($"Выберите количество отображаемых записей на страницу (минимум {minRecordsPerPage}): ");
             }
-            while (!Int32.TryParse(Console.ReadLine(), out recordsOnPage) || (recordsOnPage < minRecordsOnPage));
+            while (!Int32.TryParse(Console.ReadLine(), out settings.recordsPerPage) || (settings.recordsPerPage < minRecordsPerPage));
 
-            return (int)Math.Ceiling((double)RecordsCount / recordsOnPage);
+            settings.maxPageNumber = (int)Math.Ceiling((double)RecordsCount / settings.recordsPerPage);
+
+            return settings;
         }
     }
 }

@@ -18,15 +18,15 @@
 
 
             
-            int recordsOnPage = 0; //Количество записей на страницу для отображения
-            int maxPageNumber; //Максимальное количество доступных страниц, исходя из значения recordsOnPage
+            //int recordsOnPage = 0; //Количество записей на страницу для отображения
+            //int maxPageNumber; //Максимальное количество доступных страниц, исходя из значения recordsOnPage
 
-            maxPageNumber = DisplayContent.PrepareFormat(phoneBook.Count, recordsOnPage);
+            Settings settings = DisplayContent.PrepareFormat(phoneBook.Count);
 
             while (true)
             {
                 // Читаем введенный с консоли символ
-                Console .WriteLine($"\nВыберите номер страницы для отображения контента (от 1 до {maxPageNumber}) или нажмите Esc для выхода");
+                Console .WriteLine($"\nВыберите номер страницы для отображения контента (от 1 до {settings.maxPageNumber}) или нажмите Esc для выхода");
                 
                 var input = Console.ReadKey().KeyChar;
 
@@ -35,7 +35,7 @@
                     GoodBye(0, "");
                 }
                 // Проверяем, число ли это и если не соответствует критериям - показываем ошибку
-                if (!Int32.TryParse(input.ToString(), out int pageNumber) || pageNumber < 1 || pageNumber > maxPageNumber)
+                if (!Int32.TryParse(input.ToString(), out int pageNumber) || pageNumber < 1 || pageNumber > settings.maxPageNumber)
                 {
                     Console.WriteLine("\nСтраницы не существует");
                 }
@@ -43,7 +43,7 @@
                 else
                 {
                     // Сначала сортируем, затем пропускаем нужное количество элементов и берем 2 для показа на странице
-                    var pageContent = phoneBook.OrderBy(x => x.Name).ThenBy(x => x.LastName).Skip((pageNumber - 1) * recordsOnPage).Take(recordsOnPage);
+                    var pageContent = phoneBook.OrderBy(x => x.Name).ThenBy(x => x.LastName).Skip((pageNumber - 1) * settings.recordsPerPage).Take(settings.recordsPerPage);
                     Console.WriteLine();
 
                     // выводим результат
