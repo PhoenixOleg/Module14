@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Module14
 {
@@ -22,11 +23,21 @@ namespace Module14
             //Рассчитываем минимальное количество записей на страницу из расчета, что максимальное количество страниц (почему-то, например, по ТЗ) равно 9
             int minRecordsPerPage = (int)Math.Ceiling((double)RecordsCount / 9.0);
 
+            bool res;
             do
             {
                 Console.Write($"Выберите количество отображаемых записей на страницу (минимум {minRecordsPerPage}) или 0 для выхода: ");
+                if ((!Int32.TryParse(Console.ReadLine(), out recordsPerPage) && (recordsPerPage == 0)) || (recordsPerPage < minRecordsPerPage) && (recordsPerPage != 0))
+                {
+                    Console.WriteLine("Значение задано неправильно\n");
+                    res = true;
+                }
+                else
+                { 
+                    res = false;
+                }
             }
-            while ((!Int32.TryParse(Console.ReadLine(), out recordsPerPage) && (recordsPerPage == 0)) || (recordsPerPage < minRecordsPerPage) && (recordsPerPage != 0)) ;
+            while (res);
             
             if (recordsPerPage == 0)
             {
@@ -44,12 +55,13 @@ namespace Module14
             while (true)
             {
                 // Читаем введенный с консоли символ
-                Console.WriteLine($"\nВыберите номер страницы для отображения контента (от 1 до {settings.maxPageNumber}) или нажмите Esc для выхода");
+                Console.WriteLine($"Выберите номер страницы для отображения контента (от 1 до {settings.maxPageNumber}) или нажмите Esc для выхода");
 
-                var input = Console.ReadKey().KeyChar;
+                var input = Console.ReadKey(true).KeyChar; // Без параметра true подавляется первый символ в выводимой строке после нажатия Escape
 
                 if (input == 27) //Если Escape - выходим
                 {
+                    Console.WriteLine();
                     break;
                 }
 
@@ -72,7 +84,6 @@ namespace Module14
                     Console.WriteLine();
                 }
             }
-
         }
     }
 }
