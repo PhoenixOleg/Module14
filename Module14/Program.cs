@@ -4,7 +4,7 @@
     {
         static void Main()
         {
-            //  создаём пустой список с типом данных Contact
+            //  Создаём пустой список с типом данных Contact
             var phoneBook = new List<Contact>();
 
             #region Добавляем контакты
@@ -15,11 +15,6 @@
             phoneBook.Add(new Contact("Сергей", "Брин", 799900000013, "serg@example.com"));
             phoneBook.Add(new Contact("Иннокентий", "Смоктуновский", 799900000013, "innokentii@example.com"));
             #endregion Добавляем контакты
-
-
-
-            //int recordsOnPage = 0; //Количество записей на страницу для отображения
-            //int maxPageNumber; //Максимальное количество доступных страниц, исходя из значения recordsOnPage
 
             while (true)
             {

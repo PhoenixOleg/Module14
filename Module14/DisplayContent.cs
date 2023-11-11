@@ -7,14 +7,25 @@ using static System.Formats.Asn1.AsnWriter;
 
 namespace Module14
 {
+    /// <summary>
+    /// Структура с настройками форматирования страницы для отображения адресной книги 
+    /// </summary>
     internal struct Settings
     {
-        internal int recordsPerPage;
-        internal int maxPageNumber;
+        internal int recordsPerPage; //Количество записей на страницу для отображения
+        internal int maxPageNumber; //Максимальное количество доступных страниц, исходя из значения recordsOnPage
     }
 
+    /// <summary>
+    /// Класс, реализующий настройку форматирования страницы с контентом и отображение контента адресной книги
+    /// </summary>
     internal static class DisplayContent
     {
+        /// <summary>
+        /// Метод  форматирования страницы для отображения адресной книги 
+        /// </summary>
+        /// <param name="RecordsCount">Количество записей в адресной книги</param>
+        /// <returns>Структура Settings с настройками форматирования отображения контента</returns>
         internal static Settings PrepareFormat(int RecordsCount)
         {
             Settings settings = new();
@@ -50,6 +61,11 @@ namespace Module14
             return settings;
         }
 
+        /// <summary>
+        /// Метод постраничного отображения адресной книги
+        /// </summary>
+        /// <param name="phoneBook">Адресная книга</param>
+        /// <param name="settings">Настройки отображения</param>
         internal static void Show(List<Contact> phoneBook, Settings settings)
         {
             while (true)
