@@ -16,19 +16,12 @@
             phoneBook.Add(new Contact("Иннокентий", "Смоктуновский", 799900000013, "innokentii@example.com"));
             #endregion Добавляем контакты
 
-            //Рассчитываем минимальное количество записей на страницу из расчета, что максимальное количество страниц (почему-то, например, по ТЗ) равно 9
-            int minRecordsOnPage =  (int)Math.Ceiling((double)phoneBook.Count / 9.0);
+
             
-            int recordsOnPage;
-            int maxPageNumber;
+            int recordsOnPage = 0; //Количество записей на страницу для отображения
+            int maxPageNumber; //Максимальное количество доступных страниц, исходя из значения recordsOnPage
 
-            do
-            {
-                Console.Write($"Выберите количество отображаемых записей на страницу (минимум {minRecordsOnPage}): ");
-            }
-            while (!Int32.TryParse(Console.ReadLine(), out recordsOnPage) || (recordsOnPage < minRecordsOnPage));
-
-            maxPageNumber = (int)Math.Ceiling((double)phoneBook.Count / recordsOnPage);
+            maxPageNumber = DisplayContent.PrepareFormat(phoneBook.Count, recordsOnPage);
 
             while (true)
             {
