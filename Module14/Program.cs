@@ -32,8 +32,9 @@
 
                 if (input == 27) //Если Escape - выходим
                 {
-                    GoodBye(0, "");
+                    Final.GoodBye(0, "");
                 }
+
                 // Проверяем, число ли это и если не соответствует критериям - показываем ошибку
                 if (!Int32.TryParse(input.ToString(), out int pageNumber) || pageNumber < 1 || pageNumber > settings.maxPageNumber)
                 {
@@ -53,15 +54,6 @@
                     Console.WriteLine();
                 }
             }
-        }
-
-        private static void GoodBye(int exitCode, string msg)
-        {
-            if (exitCode != 0)
-            {
-                Console.WriteLine(msg);
-            }
-            System.Environment.Exit(exitCode);
         }
     }
 }
